@@ -1,0 +1,87 @@
+$primary-color: #007BFF;
+$highlight-color: #ff4d4d;
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10%;
+
+  .search-container {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    width: 50%;
+    margin-bottom: 5%;
+
+    .search-input {
+      flex-grow: 1;
+      padding: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      outline: none;
+
+      &:focus {
+        border-color: #999;
+      }
+    }
+
+    .reset-button {
+      margin-left: 1rem;
+      padding: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: $primary-color;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: darken($primary-color, 20%);
+      }
+
+      &:active {
+        background-color: darken($primary-color, 30%);
+      }
+    }
+  }
+
+  .user-list {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+
+    width: 50%;
+
+    div {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #333;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .delete-button {
+      align-self: flex-end;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: $highlight-color;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: darken($highlight-color, 20%);
+      }
+    }
+  }
+}
