@@ -1,41 +1,63 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import './styles/App.scss';
 import styles from './components/UserList/UserList.module.scss';
-import {User, userApi} from './services/user-api';
+import {User} from './services/user-api';
+import {deleteUser, filterUsers, getUsersThunk, resetUsers} from './redux/reducers/usersReducer';
+import {AppRootStateType} from './redux/store/store';
+import { useSelector } from 'react-redux';
+import {useAppDispatch} from './redux/hooks/dispatch-hook';
+
 
 function App() {
 
-  const [users, setUsers] = useState<User[]>([])
-  const [searchData, setSearchData] = useState('')
+  const users = useSelector<AppRootStateType, User[]>((state) => state.users.users)
+  const filteredUsers = useSelector<AppRootStateType, User[]>((state) => state.users.filteredUsers)
+  const searchData = useSelector<AppRootStateType, string>((state) => state.users.searchData)
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const getUserData = async () => {
-      const response = await userApi.getUsers()
-      setUsers(response.data)
-    }
-    getUserData()
-  }, [])
+    dispatch(getUsersThunk())
+
+  }, [dispatch])
 
   const handleDelete = (id: number) => {
-    return alert(`user ${id} deleted`)
+    dispatch(deleteUser(id))
   }
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchData(e.currentTarget.value)
+    dispatch(filterUsers(e.currentTarget.value))
   }
+
+  const resetFilter = () => {
+    dispatch(resetUsers())
+  }
+
+  const highlightText = (text: string, highlight: string) => {
+    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+    return <span> {parts.map((part, i) =>
+        <span key={i} className={part.toLowerCase() === highlight.toLowerCase() ? styles['highlight'] : undefined }>
+      {part}
+    </span>)
+    } </span>;
+  }
+
+  const userToDisplay = searchData === '' ? users : filteredUsers
 
   return (
       <div className={styles['users-container']}>
         <div className={styles['search-container']}>
-          <input onChange={onSearch} type="text" className={styles['search-input']}/>
-          <button className={styles['reset-button']}>reset</button>
+          <input onChange={onSearch} value={searchData} type="text" className={styles['search-input']}/>
+          <button onClick={resetFilter} className={styles['reset-button']}>reset</button>
         </div>
 
-        {users.map(({id, name, username, email}) => (
+        {userToDisplay.length === 0
+            ? <div className={styles['empty-users-message']}>No users found</div>
+            : userToDisplay.map(({id, name, username, email}) => (
             <div className={styles['user-list']} key={id}>
-              <div>name: {name}</div>
-              <div>username: {username}</div>
-              <div>email: {email}</div>
+              <div>{highlightText(`name: ${name}`, searchData)}</div>
+              <div>{highlightText(`username: ${username}`, searchData)}</div>
+              <div>{highlightText(`email: ${email}`, searchData)}</div>
               <button className={styles['delete-button']} onClick={() => handleDelete(id)}>Delete</button>
             </div>
         ))}

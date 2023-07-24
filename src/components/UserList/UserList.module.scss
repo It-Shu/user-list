@@ -1,5 +1,6 @@
 $primary-color: #007BFF;
 $highlight-color: #ff4d4d;
+$background-card-color: #f9f9f9;
 
 .users-container {
   display: flex;
@@ -47,6 +48,15 @@ $highlight-color: #ff4d4d;
     }
   }
 
+  .empty-users-message {
+    align-self: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: $background-card-color;
+  }
+
   .user-list {
     display: flex;
     flex-direction: column;
@@ -55,10 +65,12 @@ $highlight-color: #ff4d4d;
     padding: 1.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: $background-card-color;
 
     width: 50%;
-
+    .highlight {
+      background-color: yellow;
+    }
     div {
       margin-bottom: 1rem;
       font-size: 1rem;
