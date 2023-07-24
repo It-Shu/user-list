@@ -1,0 +1,53 @@
+@import 'src/styles/variables';
+
+.empty-users-message {
+  align-self: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: $border;
+  border-radius: 5px;
+  background-color: $background-card-color;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: $border;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: $background-card-color;
+  width: 50%;
+
+  @media (max-width: 1140px) {
+    flex-direction: column;
+  }
+
+  .user-card-title {
+    margin: 1rem;
+  }
+
+  .highlight {
+    background-color: yellow;
+  }
+
+  .delete-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    align-self: flex-end;
+    border-radius: 5px;
+    background-color: $highlight-color;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    @media (max-width: 1140px) {
+      align-self: auto;
+    }
+    &:hover {
+      background-color: darken($highlight-color, 20%);
+    }
+  }
+}
