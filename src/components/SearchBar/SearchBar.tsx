@@ -20,7 +20,7 @@ const SearchBar = () => {
     return (
         <div className={styles['search-container']}>
             <input onChange={onSearch} value={searchData} type='text' className={styles['search-input']}/>
-            <button onClick={resetFilter} className={styles['reset-button']}>reset</button>
+            <button onClick={resetFilter} className={styles['reset-button']}>Reset</button>
         </div>
     );
 };

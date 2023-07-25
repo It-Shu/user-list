@@ -1,4 +1,5 @@
 @import 'src/styles/variables';
+@import 'src/styles/buttons';
 
 .empty-users-message {
   align-self: center;
@@ -35,19 +36,12 @@
   }
 
   .delete-button {
-    padding: 0.5rem 1rem;
-    border: none;
-    align-self: flex-end;
-    border-radius: 5px;
-    background-color: $highlight-color;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    align-self: center;
+    @extend .button;
+    @extend .button--danger;
+
     @media (max-width: 1140px) {
       align-self: auto;
-    }
-    &:hover {
-      background-color: darken($highlight-color, 20%);
     }
   }
 }
