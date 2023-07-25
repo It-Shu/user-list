@@ -1,0 +1,42 @@
+@import 'src/styles/variables';
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+.button--primary {
+  background-color: $primary-color;
+  color: white;
+
+  &:hover {
+    background-color: darken($primary-color, 20%);
+  }
+  &:active {
+    background-color: darken($primary-color, 30%);
+  }
+}
+
+.button--danger {
+  background-color: $highlight-color;
+  color: white;
+
+  &:hover {
+    background-color: darken($highlight-color, 20%);
+  }
+  &:active {
+    background-color: darken($highlight-color, 30%);
+  }
+}
