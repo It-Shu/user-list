@@ -1,7 +1,7 @@
 @import 'src/styles/variables';
 @import 'src/styles/buttons';
 
-.empty-users-message {
+.emptyUsersMessage {
   align-self: center;
   margin-bottom: 2rem;
   padding: 1.5rem;
@@ -10,7 +10,44 @@
   background-color: $background-card-color;
 }
 
-.user-card {
+.mobileTitle {
+  display: none;
+
+  @media (max-width: 1200px) {
+    display: inline;
+  }
+}
+
+.headers {
+  align-self: center;
+  margin-bottom: 1rem;
+  padding: 0 1.5rem;
+  border: $border;
+  border-radius: 5px;
+  background-color: $background-card-color;
+  width: 50%;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+
+  .headerTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+
+
+    .headerTitle {
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+
+
+  }
+
+}
+
+.userCard {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -23,24 +60,61 @@
   background-color: $background-card-color;
   width: 50%;
 
-  @media (max-width: 1140px) {
-    flex-direction: column;
+  &:hover {
+    background-color: $background-hover-card-color;
   }
 
-  .user-card-title {
-    margin: 1rem;
+  @media (max-width: 1200px) {
+    flex-direction: column;
   }
+  @media (max-width: 500px) {
+    min-width: fit-content;
+  }
+
+  .userCardTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+
+    @media (max-width: 1200px) {
+      flex-direction: column;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    .userCardTitle {
+      align-self: center;
+      width: 5%;
+
+      @media (max-width: 1200px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        width: 100%;
+      }
+
+      @media (max-width: 500px) {
+        flex-direction: column;
+      }
+
+      .userCardEmailTitle {
+        color: #388fee;
+      }
+    }
+  }
+
 
   .highlight {
     background-color: yellow;
   }
 
-  .delete-button {
+  .deleteButton {
     align-self: center;
     @extend .button;
     @extend .button--danger;
 
-    @media (max-width: 1140px) {
+    @media (max-width: 1200px) {
       align-self: auto;
     }
   }

@@ -14,13 +14,13 @@ const SearchBar = () => {
         dispatch(filterUsers(e.currentTarget.value))
     }
 
-    const resetFilter = () => {
+    const resetFilterAndUsers = () => {
         dispatch(resetUsers())
     }
     return (
-        <div className={styles['search-container']}>
-            <input onChange={onSearch} value={searchData} type='text' className={styles['search-input']}/>
-            <button onClick={resetFilter} className={styles['reset-button']}>Reset</button>
+        <div className={styles.searchContainer}>
+            <input onChange={onSearch} value={searchData} type='text' className={styles.searchInput}/>
+            <button onClick={resetFilterAndUsers} className={styles.resetButton}>Reset</button>
         </div>
     );
 };
