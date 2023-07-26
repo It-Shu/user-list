@@ -10,7 +10,7 @@ interface UserCardProps {
     handleDelete: (id: number) => void
 }
 
-const UserCard: FC<UserCardProps> = (props) => {
+const UserCard: FC<UserCardProps> = React.memo((props) => {
 
     const {usersFilter, setSelectedUser, handleDelete} = props
 
@@ -45,6 +45,6 @@ const UserCard: FC<UserCardProps> = (props) => {
             ))}
         </>
     );
-};
+});
 
 export default UserCard;

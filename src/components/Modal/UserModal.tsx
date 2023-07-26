@@ -10,7 +10,6 @@ interface UserModalProps {
 const UserModal: FC<UserModalProps> = (props) => {
     const {onClose, content} = props
 
-
     return (
         <div className={styles.modalContainer} onClick={onClose}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>

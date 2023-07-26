@@ -27,9 +27,9 @@ const UsersCards = () => {
         dispatch(deleteUserAC(id));
     }, [dispatch]);
 
-    const closeUserModal = useCallback(() => {
+    const closeUserModal = () => {
         setSelectedUser(null);
-    }, []);
+    }
 
     const matchSearch = (data: string) => {
         return data.toLowerCase().includes(searchData.trim().toLowerCase())
