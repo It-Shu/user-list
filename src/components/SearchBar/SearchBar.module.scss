@@ -1,18 +1,18 @@
 @import 'src/styles/variables';
 @import 'src/styles/buttons';
 
-.search-container {
+.searchContainer {
   display: flex;
   flex-direction: row;
   align-self: center;
   width: 50%;
   margin-bottom: 5%;
 
-  @media (max-width: 1140px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
   }
 
-  .search-input {
+  .searchInput {
     flex-grow: 1;
     padding: 1rem;
     border-radius: 5px;
@@ -24,12 +24,12 @@
     }
   }
 
-  .reset-button {
+  .resetButton {
     margin-left: 1rem;
     @extend .button;
     @extend .button--primary;
 
-    @media (max-width: 1140px) {
+    @media (max-width: 1200px) {
       margin-left: 0;
       margin-top: 1rem;
     }

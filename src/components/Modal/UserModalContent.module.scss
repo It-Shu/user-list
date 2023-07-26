@@ -1,0 +1,65 @@
+@import 'src/styles/variables';
+@import 'src/styles/buttons';
+
+.modalTitles {
+  margin: 1rem;
+
+  .ModalUserName {
+    text-align: center;
+    color: $primary-color;
+  }
+
+  .modalTitleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media(max-width: 500px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .modalTitle {
+      margin: 1rem;
+
+      @media(max-width: 500px) {
+        margin: 0.5rem;
+      }
+    }
+  }
+}
+
+
+.buttonsContainer {
+
+  display: flex;
+  justify-content: space-around;
+
+  .closeButton {
+    width: 40%;
+    @extend .button;
+    @extend .button--primary;
+
+    @media(max-width: 250px) {
+      margin-bottom: 5%;
+      width: 100%;
+    }
+  }
+
+
+  .deleteButton {
+    width: 40%;
+    @extend .button;
+    @extend .button--danger;
+
+    @media(max-width: 250px) {
+      width: 100%;
+    }
+  }
+
+  @media(max-width: 250px) {
+    flex-direction: column;
+  }
+
+}
+

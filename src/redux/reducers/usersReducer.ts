@@ -1,28 +1,32 @@
-import {AppThunk} from '../store/store';
 import {User} from '../../types/UserTypes';
 import {userApi} from '../../services/user-api';
+import {Dispatch} from 'redux';
 
 const SET_USERS = 'USER/SET_USERS';
 const DELETE_USER = 'USER/DELETE_USER';
 const RESET_USERS_SEARCH = 'USER/RESET_USERS_SEARCH';
 const FILTER_USERS = 'USER/FILTER_USERS';
+const ERROR_USERS = 'USER/ERROR_USERS';
 
 export type SetUsersActionType = ReturnType<typeof setUsers>
 export type SetDeleteUsersActionType = ReturnType<typeof deleteUser>
 export type SetResetUsersSearchActionType = ReturnType<typeof resetUsers>
 export type SetFilterUsersActionType = ReturnType<typeof filterUsers>
+export type SetErrorUsersActionType = ReturnType<typeof usersRequestError>
 
 export type ActionsType =
     | SetUsersActionType
     | SetDeleteUsersActionType
     | SetResetUsersSearchActionType
     | SetFilterUsersActionType
+    | SetErrorUsersActionType
 
 export type InitialStateType = {
     users: User[]
     initialUsers: User[]
     filteredUsers: User[]
     searchData: string
+    errorMessage: string
 }
 
 const initialState: InitialStateType = {
@@ -30,6 +34,7 @@ const initialState: InitialStateType = {
     initialUsers: [],
     filteredUsers: [],
     searchData: '',
+    errorMessage: ''
 }
 
 //reducer
@@ -47,13 +52,17 @@ export const usersReducer = (state = initialState, action: ActionsType): Initial
             return {...state, users: state.initialUsers, searchData: ''};
 
         case FILTER_USERS:
-            const filteredUsers = state.users.filter(user =>
-                user.name.toLowerCase().includes(action.searchData.trim().toLowerCase()) ||
-                user.username.toLowerCase().includes(action.searchData.trim().toLowerCase()) ||
-                user.email.toLowerCase().includes(action.searchData.trim().toLowerCase())
-            );
+            const filteredUsers = state.users.filter(user => {
+                const matchSearch = (data: string) => {
+                    return data.toLowerCase().includes(action.searchData.trim().toLowerCase())
+                }
+                return matchSearch(user.name) ||
+                    matchSearch(user.username) ||
+                    matchSearch(user.email)
+            });
             return {...state, searchData: action.searchData, filteredUsers: filteredUsers};
-
+        case ERROR_USERS:
+            return {...state, errorMessage: action.error}
         default:
             return state
     }
@@ -68,12 +77,17 @@ export const resetUsers = () => ({type: RESET_USERS_SEARCH} as const);
 
 export const filterUsers = (searchData: string) => ({type: FILTER_USERS, searchData} as const)
 
+export const usersRequestError = (error: string) => ({type: ERROR_USERS, error} as const)
+
 //thunk
-export const getUsersThunk = (): AppThunk => async (dispatch) => {
-    try {
-        const users = await userApi.getUsers();
-        dispatch(setUsers(users.data));
-    } catch (error) {
-        console.error(error);
-    }
+export const getUsersThunk = () => (dispatch: Dispatch<ActionsType>) => {
+    userApi.getUsers()
+        .then(res => {
+            dispatch(setUsers(res.data));
+        })
+        .catch((error) => {
+            console.log('ERROR',error.message)
+            dispatch(usersRequestError(error.message))
+        })
+
 };
