@@ -8,11 +8,11 @@ const RESET_USERS_SEARCH = 'USER/RESET_USERS_SEARCH';
 const FILTER_USERS = 'USER/FILTER_USERS';
 const ERROR_USERS = 'USER/ERROR_USERS';
 
-export type SetUsersActionType = ReturnType<typeof setUsers>
-export type SetDeleteUsersActionType = ReturnType<typeof deleteUser>
-export type SetResetUsersSearchActionType = ReturnType<typeof resetUsers>
-export type SetFilterUsersActionType = ReturnType<typeof filterUsers>
-export type SetErrorUsersActionType = ReturnType<typeof usersRequestError>
+type SetUsersActionType = ReturnType<typeof setUsersAC>
+type SetDeleteUsersActionType = ReturnType<typeof deleteUserAC>
+type SetResetUsersSearchActionType = ReturnType<typeof resetUsersAC>
+type SetFilterUsersActionType = ReturnType<typeof filterUsersAC>
+type SetErrorUsersActionType = ReturnType<typeof usersRequestErrorAC>
 
 export type ActionsType =
     | SetUsersActionType
@@ -50,17 +50,8 @@ export const usersReducer = (state = initialState, action: ActionsType): Initial
             };
         case RESET_USERS_SEARCH:
             return {...state, users: state.initialUsers, searchData: ''};
-
         case FILTER_USERS:
-            const filteredUsers = state.users.filter(user => {
-                const matchSearch = (data: string) => {
-                    return data.toLowerCase().includes(action.searchData.trim().toLowerCase())
-                }
-                return matchSearch(user.name) ||
-                    matchSearch(user.username) ||
-                    matchSearch(user.email)
-            });
-            return {...state, searchData: action.searchData, filteredUsers: filteredUsers};
+            return {...state, searchData: action.searchData};
         case ERROR_USERS:
             return {...state, errorMessage: action.error}
         default:
@@ -69,25 +60,25 @@ export const usersReducer = (state = initialState, action: ActionsType): Initial
 }
 
 //actions
-export const setUsers = (users: User[]) => ({type: SET_USERS, users} as const);
+export const setUsersAC = (users: User[]) => ({type: SET_USERS, users} as const);
 
-export const deleteUser = (id: number) => ({type: DELETE_USER, id,} as const);
+export const deleteUserAC = (id: number) => ({type: DELETE_USER, id,} as const);
 
-export const resetUsers = () => ({type: RESET_USERS_SEARCH} as const);
+export const resetUsersAC = () => ({type: RESET_USERS_SEARCH} as const);
 
-export const filterUsers = (searchData: string) => ({type: FILTER_USERS, searchData} as const)
+export const filterUsersAC = (searchData: string) => ({type: FILTER_USERS, searchData} as const)
 
-export const usersRequestError = (error: string) => ({type: ERROR_USERS, error} as const)
+export const usersRequestErrorAC = (error: string) => ({type: ERROR_USERS, error} as const)
 
 //thunk
 export const getUsersThunk = () => (dispatch: Dispatch<ActionsType>) => {
     userApi.getUsers()
         .then(res => {
-            dispatch(setUsers(res.data));
+            dispatch(setUsersAC(res.data));
         })
         .catch((error) => {
-            console.log('ERROR',error.message)
-            dispatch(usersRequestError(error.message))
+            console.log('ERROR', error.message)
+            dispatch(usersRequestErrorAC(error.message))
         })
 
 };

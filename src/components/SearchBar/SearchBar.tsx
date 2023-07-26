@@ -1,22 +1,22 @@
 import React, {ChangeEvent} from 'react';
 import styles from './SearchBar.module.scss';
-import {filterUsers, resetUsers} from '../../redux/reducers/usersReducer';
-import {useAppDispatch} from '../../redux/hooks/dispatch-hook';
-import {useSelector} from 'react-redux';
-import {AppRootStateType} from '../../redux/store/store';
+import {filterUsersAC, resetUsersAC} from '../../redux/reducers/usersReducer';
+import {useAppDispatch} from '../../redux/hooks/useAppDispatch';
+import {useAppSelector} from '../../redux/hooks/useAppSelector';
 
 const SearchBar = () => {
 
-    const searchData = useSelector<AppRootStateType, string>((state) => state.users.searchData)
+    const searchData = useAppSelector((state) => state.users.searchData)
     const dispatch = useAppDispatch()
 
     const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(filterUsers(e.currentTarget.value))
+        dispatch(filterUsersAC(e.currentTarget.value))
     }
 
     const resetFilterAndUsers = () => {
-        dispatch(resetUsers())
+        dispatch(resetUsersAC())
     }
+
     return (
         <div className={styles.searchContainer}>
             <input onChange={onSearch} value={searchData} type='text' className={styles.searchInput}/>

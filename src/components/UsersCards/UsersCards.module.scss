@@ -1,0 +1,41 @@
+@import 'src/styles/variables';
+
+.emptyUsersMessage {
+  align-self: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: $border;
+  border-radius: 5px;
+  background-color: $background-card-color;
+}
+
+.headers {
+  align-self: center;
+  margin-bottom: 1rem;
+  padding: 0 1.5rem;
+  border: $border;
+  border-radius: 5px;
+  background-color: $background-card-color;
+  width: 50%;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+
+  .headerTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+
+
+    .headerTitle {
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+
+
+  }
+
+}
+
+
